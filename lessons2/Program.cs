@@ -1,85 +1,33 @@
-﻿System.Console.WriteLine("С играем в угодай число?");
-System.Console.WriteLine("Введите (yes/no или y/n) : ");
-string? resultUser = System.Console.ReadLine();
-if (!String.IsNullOrEmpty(resultUser))
+﻿/**
+*** игра Угадай число, при запруске игры загадывается число
+*** участник угадывает, если не совпадений то у него есть еще попытка,
+*** выход когда выигрывает, небходмо подсчитать количество ходов
+**/
+
+
+
+System.Console.WriteLine("Добро пожаловать в игру \"Угадай число\".");
+System.Console.WriteLine("Правила: \n \t\t 1. При запуске генерируется рандомное число от 0 до 100.\n" +
+                                    " \t\t 2. Участник должен угодать это число.\n" +
+                                    " \t\t Удачи");
+var isStartGame = true;
+var isBeginUser = true;
+var outDefault = 0;
+do
 {
-    if (resultUser.ToLower() == "yes" || resultUser.ToLower() == "y")
+    var randomNumber = new Random()
+                            .Next(0, 100);
+    System.Console.WriteLine($"Число успешно загадан {randomNumber.ToString()}");
+    while (isBeginUser)
     {
-        var beginOfTheGame = true;
-
-        var random = new Random();
-        var hiddenNumber = random.Next(0, 100);
-        System.Console.WriteLine(hiddenNumber + "\n");
-
-        System.Console.WriteLine("Введите Ваше число : ");
-        string? varUser = System.Console.ReadLine();
-
-        if (!String.IsNullOrEmpty(varUser))
+        string? inputValue = System.Console.ReadLine();
+        if (!String.IsNullOrEmpty(inputValue))
         {
-            var numberUser = Int32.Parse(varUser);
-            while (beginOfTheGame)
+            int userNumber = int.TryParse(inputValue, out outDefault);
+            if (userNumber != outDefault)
             {
-                if (numberUser == hiddenNumber)
-                {
-                    System.Console.WriteLine("Вы выйграли, хотите продолжить еше?");
-                    System.Console.Write("Введите (yes/no или y/n) : ");
-                    string? str = System.Console.ReadLine();
-                    beginOfTheGame = false;
-                    if (!String.IsNullOrEmpty(str))
-                    {
-                        if (str.ToLower() == "yes" || str.ToLower() == "y")
-                        {
-                            System.Console.WriteLine(hiddenNumber + "\n");
-                            hiddenNumber = random.Next(0, 100);
-                            System.Console.Write("Введите число : ");
-                            string? str1 = System.Console.ReadLine();
-                            if (!String.IsNullOrEmpty(str1))
-                            {
-                                numberUser = Int32.Parse(str1);
-                            }else{
-                                System.Console.WriteLine("Вы ввели не корректные данные. в ведите чисоло: ");
-                                str1 = System.Console.ReadLine();
-                            }
-                            
-                        }
-                        else
-                        {
-                            System.Console.WriteLine("Спасибо за игру!!!, игра закроется через 3 сек.");
-                            Thread.Sleep(3000);
-                            System.Environment.Exit(0);
-                        }
-                    }
-                }
-                else
-                {
-                    System.Console.Write("Введите число : ");
-                    string? str = System.Console.ReadLine();
-                    if (!String.IsNullOrEmpty(str))
-                    {
-                        numberUser = int.Parse(str);
-                    }else{
-                        System.Console.WriteLine("Вы ввели не корректные данные. в ведите чисоло: ");
-                        str = System.Console.ReadLine();
-                    }
-                }
+                
             }
         }
-        else
-        {
-            System.Console.Write("Введите число : ");
-            varUser = System.Console.ReadLine();
-        }
     }
-    else if (resultUser.ToLower() == "no" || resultUser.ToLower() == "n")
-    {
-        System.Console.WriteLine("Вы не захотели играть. Игра закроется через 3 сек.");
-        Thread.Sleep(3000);
-        System.Environment.Exit(0);
-    }
-    else
-    {
-        System.Console.WriteLine("Не корректные данные, введите ответ корректный ответ.");
-        System.Console.WriteLine("Введите (yes/no или y/n) : ");
-        resultUser = System.Console.ReadLine();
-    }
-}
+} while (isStartGame);

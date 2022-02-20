@@ -1,0 +1,9 @@
+# The following lines were added by compinstall
+
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' list-suffixes true
+zstyle :compinstall filename '/home/amindhome/Документы/git/TrufanovRoman/lessons2/00'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
